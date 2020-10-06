@@ -6,3 +6,5 @@ To run this repo, please run these command consequently in your command line:
     yarn
     yarn storybook
 ```
+
+![title](./Demo.png)
