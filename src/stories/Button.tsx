@@ -1,52 +1,42 @@
 import React from "react";
-import "./button.scss";
+
+import style from "./button.module.scss";
 
 export interface ButtonProps {
-  /**
-   * Is this the principal call to action on the page?
-   */
-  primary?: boolean;
-  /**
-   * What background color to use
-   */
-  backgroundColor?: string;
-  /**
-   * How large should the button be?
-   */
-  size?: "small" | "medium" | "large";
-  /**
-   * Button contents
-   */
-  label: string;
-  /**
-   * Optional click handler
-   */
+  varient?: "text" | "outline";
+  disableShadow?: boolean;
+  disabled?: boolean;
+  startIcon?: string;
+  endIcon?: string;
+  size?: "sm" | "md" | "lg";
+  color?: "default" | "primary" | "secondary" | "danger";
   onClick?: () => void;
 }
 
-/**
- * Primary UI component for user interaction
- */
 export const Button: React.FC<ButtonProps> = ({
-  primary = false,
-  size = "medium",
-  backgroundColor,
-  label,
-  ...props
+  varient,
+  disableShadow = false,
+  disabled = true,
+  startIcon,
+  endIcon,
+  size = "md",
+  color = "primary",
+  onClick,
+  children,
 }) => {
-  const mode = primary
-    ? "storybook-button--primary"
-    : "storybook-button--secondary";
   return (
     <button
       type="button"
-      className={["storybook-button", `storybook-button--${size}`, mode].join(
-        " "
-      )}
-      style={{ backgroundColor }}
-      {...props}
+      className={
+        style["button"] +
+        " " +
+        style[`color-${color}`] +
+        " " +
+        style[`size-${size}`]
+      }
+      disabled={disabled}
     >
-      {label}
+      {children}
     </button>
   );
 };
