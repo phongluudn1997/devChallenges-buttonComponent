@@ -14,14 +14,13 @@ const Template: Story<ButtonProps> = (args) => (
   <Button {...args}>Button</Button>
 );
 
-export const Default = Template.bind({});
-Default.args = {
-  color: "default",
-};
-
 export const Primary = Template.bind({});
 Primary.args = {
   color: "primary",
+};
+export const Default = Template.bind({});
+Default.args = {
+  color: "default",
 };
 
 export const Secondary = Template.bind({});

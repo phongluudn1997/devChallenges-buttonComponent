@@ -1,22 +1,24 @@
 import React from "react";
 
 import style from "./button.module.scss";
+import classNames from "classnames";
+import { FcAssistant, FcBullish } from "react-icons/fc";
 
 export interface ButtonProps {
-  varient?: "text" | "outline";
+  varient?: "text" | "outline" | "filled";
   disableShadow?: boolean;
   disabled?: boolean;
-  startIcon?: string;
-  endIcon?: string;
+  startIcon?: "FcBullish" | "FcAssistant";
+  endIcon?: "FcBullish" | "FcAssistant";
   size?: "sm" | "md" | "lg";
   color?: "default" | "primary" | "secondary" | "danger";
   onClick?: () => void;
 }
 
 export const Button: React.FC<ButtonProps> = ({
-  varient,
+  varient = "filled",
   disableShadow = false,
-  disabled = true,
+  disabled = false,
   startIcon,
   endIcon,
   size = "md",
@@ -24,19 +26,24 @@ export const Button: React.FC<ButtonProps> = ({
   onClick,
   children,
 }) => {
+  const icons = {
+    FcBullish: <FcBullish className={style["button__content"]} />,
+    FcAssistant: <FcAssistant className={style["button__content"]} />,
+  };
   return (
     <button
       type="button"
-      className={
-        style["button"] +
-        " " +
-        style[`color-${color}`] +
-        " " +
-        style[`size-${size}`]
-      }
+      className={classNames(
+        style["button"],
+        style[`color-${color}-${varient}`],
+        style[`size-${size}`],
+        disableShadow && style["disableShadow"]
+      )}
       disabled={disabled}
     >
-      {children}
+      {startIcon && icons[startIcon]}
+      <span className={style["button__content"]}>{children}</span>
+      {endIcon && icons[endIcon]}
     </button>
   );
 };
